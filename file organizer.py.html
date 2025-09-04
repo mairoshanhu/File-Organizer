@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>file organizer.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+file organizer.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">os</span><span class="s2">, </span><span class="s1">shutil</span>
+
+<span class="s3">#Folder path input</span>
+<span class="s1">FOLDER_PATH </span><span class="s2">= </span><span class="s4">r&quot;Folder's Path&quot;</span>
+
+<span class="s3"># File  groups</span>
+<span class="s1">EXT_MAP </span><span class="s2">= {</span>
+    <span class="s4">&quot;Images&quot;</span><span class="s2">: [</span><span class="s4">&quot;.jpg&quot;</span><span class="s2">, </span><span class="s4">&quot;.jpeg&quot;</span><span class="s2">, </span><span class="s4">&quot;.png&quot;</span><span class="s2">, </span><span class="s4">&quot;.gif&quot;</span><span class="s2">, </span><span class="s4">&quot;.bmp&quot;</span><span class="s2">, </span><span class="s4">&quot;.tiff&quot;</span><span class="s2">, </span><span class="s4">&quot;.webp&quot;</span><span class="s2">],</span>
+    <span class="s4">&quot;Videos&quot;</span><span class="s2">: [</span><span class="s4">&quot;.mp4&quot;</span><span class="s2">, </span><span class="s4">&quot;.avi&quot;</span><span class="s2">, </span><span class="s4">&quot;.mkv&quot;</span><span class="s2">, </span><span class="s4">&quot;.mov&quot;</span><span class="s2">, </span><span class="s4">&quot;.flv&quot;</span><span class="s2">, </span><span class="s4">&quot;.wmv&quot;</span><span class="s2">],</span>
+    <span class="s4">&quot;Music&quot;</span><span class="s2">: [</span><span class="s4">&quot;.mp3&quot;</span><span class="s2">, </span><span class="s4">&quot;.wav&quot;</span><span class="s2">, </span><span class="s4">&quot;.aac&quot;</span><span class="s2">, </span><span class="s4">&quot;.flac&quot;</span><span class="s2">, </span><span class="s4">&quot;.ogg&quot;</span><span class="s2">, </span><span class="s4">&quot;.m4a&quot;</span><span class="s2">],</span>
+    <span class="s4">&quot;Docs&quot;</span><span class="s2">: [</span><span class="s4">&quot;.pdf&quot;</span><span class="s2">, </span><span class="s4">&quot;.doc&quot;</span><span class="s2">, </span><span class="s4">&quot;.docx&quot;</span><span class="s2">, </span><span class="s4">&quot;.xls&quot;</span><span class="s2">, </span><span class="s4">&quot;.xlsx&quot;</span><span class="s2">, </span><span class="s4">&quot;.ppt&quot;</span><span class="s2">, </span><span class="s4">&quot;.pptx&quot;</span><span class="s2">, </span><span class="s4">&quot;.txt&quot;</span><span class="s2">],</span>
+    <span class="s4">&quot;Archives&quot;</span><span class="s2">: [</span><span class="s4">&quot;.zip&quot;</span><span class="s2">, </span><span class="s4">&quot;.rar&quot;</span><span class="s2">, </span><span class="s4">&quot;.7z&quot;</span><span class="s2">, </span><span class="s4">&quot;.tar&quot;</span><span class="s2">, </span><span class="s4">&quot;.gz&quot;</span><span class="s2">],</span>
+    <span class="s4">&quot;Code&quot;</span><span class="s2">: [</span><span class="s4">&quot;.py&quot;</span><span class="s2">, </span><span class="s4">&quot;.java&quot;</span><span class="s2">, </span><span class="s4">&quot;.c&quot;</span><span class="s2">, </span><span class="s4">&quot;.cpp&quot;</span><span class="s2">, </span><span class="s4">&quot;.js&quot;</span><span class="s2">, </span><span class="s4">&quot;.html&quot;</span><span class="s2">, </span><span class="s4">&quot;.css&quot;</span><span class="s2">, </span><span class="s4">&quot;.php&quot;</span><span class="s2">, </span><span class="s4">&quot;.rb&quot;</span><span class="s2">],</span>
+<span class="s2">}</span>
+
+
+<span class="s0">def </span><span class="s1">organize</span><span class="s2">(</span><span class="s1">folder</span><span class="s2">):</span>
+    <span class="s0">if not </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">isdir</span><span class="s2">(</span><span class="s1">folder</span><span class="s2">):</span>
+        <span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;❌ Invalid folder path!&quot;</span><span class="s2">)</span>
+        <span class="s0">return</span>
+
+    <span class="s1">files </span><span class="s2">= </span><span class="s1">os</span><span class="s2">.</span><span class="s1">listdir</span><span class="s2">(</span><span class="s1">folder</span><span class="s2">)</span>
+    <span class="s0">for </span><span class="s1">f </span><span class="s0">in </span><span class="s1">files</span><span class="s2">:</span>
+        <span class="s1">path </span><span class="s2">= </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">join</span><span class="s2">(</span><span class="s1">folder</span><span class="s2">, </span><span class="s1">f</span><span class="s2">)</span>
+        <span class="s0">if </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">isfile</span><span class="s2">(</span><span class="s1">path</span><span class="s2">):</span>
+            <span class="s1">ext </span><span class="s2">= </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">splitext</span><span class="s2">(</span><span class="s1">f</span><span class="s2">)[</span><span class="s5">1</span><span class="s2">].</span><span class="s1">lower</span><span class="s2">()</span>
+            <span class="s1">moved </span><span class="s2">= </span><span class="s0">False</span>
+            <span class="s0">for </span><span class="s1">category</span><span class="s2">, </span><span class="s1">exts </span><span class="s0">in </span><span class="s1">EXT_MAP</span><span class="s2">.</span><span class="s1">items</span><span class="s2">():</span>
+                <span class="s0">if </span><span class="s1">ext </span><span class="s0">in </span><span class="s1">exts</span><span class="s2">:</span>
+                    <span class="s1">target_dir </span><span class="s2">= </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">join</span><span class="s2">(</span><span class="s1">folder</span><span class="s2">, </span><span class="s1">category</span><span class="s2">)</span>
+                    <span class="s1">os</span><span class="s2">.</span><span class="s1">makedirs</span><span class="s2">(</span><span class="s1">target_dir</span><span class="s2">, </span><span class="s1">exist_ok</span><span class="s2">=</span><span class="s0">True</span><span class="s2">)</span>
+                    <span class="s1">shutil</span><span class="s2">.</span><span class="s1">move</span><span class="s2">(</span><span class="s1">path</span><span class="s2">, </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">join</span><span class="s2">(</span><span class="s1">target_dir</span><span class="s2">, </span><span class="s1">f</span><span class="s2">))</span>
+                    <span class="s1">moved </span><span class="s2">= </span><span class="s0">True</span>
+                    <span class="s0">break</span>
+            <span class="s0">if not </span><span class="s1">moved</span><span class="s2">:</span>
+                <span class="s1">other_dir </span><span class="s2">= </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">join</span><span class="s2">(</span><span class="s1">folder</span><span class="s2">, </span><span class="s4">&quot;Others&quot;</span><span class="s2">)</span>
+                <span class="s1">os</span><span class="s2">.</span><span class="s1">makedirs</span><span class="s2">(</span><span class="s1">other_dir</span><span class="s2">, </span><span class="s1">exist_ok</span><span class="s2">=</span><span class="s0">True</span><span class="s2">)</span>
+                <span class="s1">shutil</span><span class="s2">.</span><span class="s1">move</span><span class="s2">(</span><span class="s1">path</span><span class="s2">, </span><span class="s1">os</span><span class="s2">.</span><span class="s1">path</span><span class="s2">.</span><span class="s1">join</span><span class="s2">(</span><span class="s1">other_dir</span><span class="s2">, </span><span class="s1">f</span><span class="s2">))</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s4">&quot;Organizing of files is done!&quot;</span><span class="s2">)</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ </span><span class="s2">== </span><span class="s4">&quot;__main__&quot;</span><span class="s2">:</span>
+    <span class="s1">print</span><span class="s2">(</span><span class="s4">f&quot;Organizing files in: </span><span class="s0">{</span><span class="s1">FOLDER_PATH</span><span class="s0">}</span><span class="s4">&quot;</span><span class="s2">)</span>
+    <span class="s1">organize</span><span class="s2">(</span><span class="s1">FOLDER_PATH</span><span class="s2">)</span>
+</pre>
+</body>
+</html>
